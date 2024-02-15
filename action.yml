@@ -1,0 +1,28 @@
+name: Update PR Description
+author: nephroflow
+description: Add or update content in GitHub PR description.
+
+inputs:
+  content:
+    description: Content to add to PR description.
+    required: true
+  contentIsFilePath:
+    description: Whether the content is a file path or raw text.
+    required: false
+  regex:
+    description: Regex string to match and replace with content. Pass an empty string to append.
+    required: false
+  regexFlags:
+    description: Regex flags to use.
+    required: false
+  token:
+    description: GitHub secrets access token.
+    required: true
+
+runs:
+  using: node20
+  main: dist/index.js
+
+branding:
+  icon: align-left
+  color: white
