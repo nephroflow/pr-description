@@ -20,7 +20,7 @@ GitHub action to add or update text in a pull request description.
         - name: Checkout
           uses: actions/checkout@v3
         - name: Do action
-          uses: nephroflow/pr-description@v1.0.0
+          uses: nephroflow/pr-description@v1
           with:
             content: "Hello there!"
             regex: "matchuntilthenend.*"
@@ -41,7 +41,7 @@ GitHub action to add or update text in a pull request description.
         - name: Checkout
           uses: actions/checkout@v3
         - name: Do action
-          uses: nephroflow/pr-description@v0.1.2
+          uses: nephroflow/pr-description@v1
           with:
             content: path/to/file.txt
             contentIsFilePath: true
