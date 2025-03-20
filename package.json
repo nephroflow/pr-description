@@ -1,11 +1,13 @@
 {
   "name": "pr-action",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "module": "index.js",
+  "type": "module",
   "scripts": {
     "rebuild": "ncc build index.js --license licenses.txt"
   },
+  "packageManager": "pnpm@10.6.4",
   "dependencies": {
     "@actions/core": "^1.9.0",
     "@actions/github": "^6.0.0",

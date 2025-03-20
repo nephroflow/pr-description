@@ -1,18 +1,18 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
-const fs = require("fs");
+import { getInput } from "@actions/core";
+import { context, getOctokit } from "@actions/github";
+import { readFileSync } from "fs";
 
 async function run() {
-  const content = core.getInput("content", { required: true });
-  const contentIsFilePath = core.getInput("contentIsFilePath");
-  const regex = core.getInput("regex") || "---.*";
-  const regexFlags = core.getInput("regexFlags") || "";
-  const token = core.getInput("token", { required: true });
+  const content = getInput("content", { required: true });
+  const contentIsFilePath = getInput("contentIsFilePath");
+  const regex = getInput("regex") || "---.*";
+  const regexFlags = getInput("regexFlags") || "";
+  const token = getInput("token", { required: true });
 
   const [repoOwner, repoName] = process.env.GITHUB_REPOSITORY.split("/");
-  const prNumber = github.context.payload.issue.number;
+  const prNumber = context.payload.issue.number;
 
-  const octokit = github.getOctokit(token);
+  const octokit = getOctokit(token);
 
   const { data } = await octokit.rest.pulls.get({
     owner: repoOwner,
@@ -24,7 +24,7 @@ async function run() {
 
   let output = content;
   if (contentIsFilePath && contentIsFilePath === "true") {
-    output = fs.readFileSync(content).toString("utf-8");
+    output = readFileSync(content).toString("utf-8");
   }
 
   const re = RegExp(regex, regexFlags);
