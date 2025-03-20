@@ -2,15 +2,19 @@
   "name": "pr-action",
   "version": "1.0.0",
   "license": "MIT",
-  "module": "index.js",
+  "module": "dist/index.js",
   "type": "module",
   "scripts": {
-    "rebuild": "ncc build index.js --license licenses.txt"
+    "rebuild": "ncc build index.ts --license licenses.txt"
   },
   "packageManager": "pnpm@10.6.4",
   "dependencies": {
     "@actions/core": "^1.9.0",
     "@actions/github": "^6.0.0",
-    "@vercel/ncc": "^0.34.0"
+    "@vercel/ncc": "^0.38.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
   }
 }

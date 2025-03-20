@@ -1,6 +1,6 @@
 import { getInput } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 
 async function run() {
   const content = getInput("content", { required: true });
@@ -9,10 +9,12 @@ async function run() {
   const regexFlags = getInput("regexFlags") || "";
   const token = getInput("token", { required: true });
 
-  const [repoOwner, repoName] = process.env.GITHUB_REPOSITORY.split("/");
-  const prNumber = context.payload.issue.number;
+  const [repoOwner, repoName] = process.env.GITHUB_REPOSITORY?.split("/") || [];
+  const prNumber = context.payload.issue?.number;
 
   const octokit = getOctokit(token);
+
+  if (!repoOwner || !repoName || !prNumber) return;
 
   const { data } = await octokit.rest.pulls.get({
     owner: repoOwner,
@@ -20,7 +22,7 @@ async function run() {
     pull_number: prNumber,
   });
 
-  body = data.body;
+  let body = data.body;
 
   let output = content;
   if (contentIsFilePath && contentIsFilePath === "true") {
